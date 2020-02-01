@@ -115,23 +115,23 @@ function GreenDude(game, spritesheet) {
     this.animation = new Animation(spritesheet, 100, 120, 5, 0.2, 42, true, 0.75);
     this.speed = 0;
     this.ctx = game.ctx;
-    Entity.call(this, game, 10, 180);
+    Entity.call(this, game, 10, 240);
 }
 
 GreenDude.prototype = new Entity();
 GreenDude.prototype.constructor = GreenDude;
 
 GreenDude.prototype.update = function() {
-    // this.x += this.game.clockTick * this.speed;
+    this.x += this.game.clockTick * this.speed;
     // if (this.x > 800) this.x = -230;
 
-    if (this.y > 400) {
-        this.y -= 5;
+    if (this.x > 5) {
+        this.x += 0.5;
     }
-    if (this.y < 200) {
-        this.speed = 0;
-        this.y = 199;
-    }
+    // if (this.y < 200) {
+    //     this.speed = 0;
+    //     this.x = 199;
+    // }
 
     Entity.prototype.update.call(this);
 };
@@ -277,15 +277,8 @@ SpaceCat.prototype.draw = function() {
     Entity.prototype.draw.call(this);
 };
 
-function Swirl(game, spritesheet) {
-    this.animation = new Animation(spritesheet, 200, 100, 1, 0.05, 52, true, 0.8);
-    this.speed = 0;
-    this.ctx = game.ctx;
-    Entity.call(this, game, 400, 300);
-}
-
 function Sun(game, spritesheet) {
-    this.animation = new Animation(spritesheet, 100, 100, 5, 0.1, 59, true, 3.5);
+    this.animation = new Animation(spritesheet, 100, 100, 5, 0.3, 59, true, 3.5);
     this.speed = 0;
     this.ctx = game.ctx;
     Entity.call(this, game, -100, -100);
@@ -306,6 +299,13 @@ Sun.prototype.draw = function() {
     this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     Entity.prototype.draw.call(this);
 };
+
+function Swirl(game, spritesheet) {
+    this.animation = new Animation(spritesheet, 200, 100, 1, 0.05, 52, true, 1);
+    this.speed = 0;
+    this.ctx = game.ctx;
+    Entity.call(this, game, 260, 90);
+}
 
 Swirl.prototype = new Entity();
 Swirl.prototype.constructor = Swirl;
