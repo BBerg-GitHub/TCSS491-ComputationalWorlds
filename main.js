@@ -134,7 +134,7 @@ GreenDude.prototype.draw = function() {
 
 function Kitties(game, spritesheet) {
     this.animation = new Animation(spritesheet, 80, 80, 4, 0.5, 4, true, 1.5);
-    this.speed = 0;
+    this.speed = 10;
     this.ctx = game.ctx;
     Entity.call(this, game, 350, 15);
 }
@@ -147,7 +147,7 @@ Kitties.prototype.update = function() {
 
     if (this.x > 800) this.x = -230;
 
-    //if (this.y > 300) this.y = -60;
+    if (this.y > 300) this.y = -60;
     Entity.prototype.update.call(this);
 };
 
@@ -206,8 +206,13 @@ ShootingStar.prototype.update = function() {
     if (this.y < 800) {
         this.y -= 1;
     }
+    // previous code
     if (this.x < 800) {
         this.x += 1;
+    } //returns the star to the original position.
+    if (this.y < 0) {
+        this.y = 500;
+        this.x = -10;
     }
 
     Entity.prototype.update.call(this);
@@ -220,9 +225,10 @@ ShootingStar.prototype.draw = function() {
 
 function SpaceCat(game, spritesheet) {
     this.animation = new Animation(spritesheet, 83, 100, 1, 0.04, 40, true, 1);
+    //this.animation = new Animation(spritesheet, 83, 100, 1, 0.04, 40, true, 1); // AM.getAsset();
     this.speed = 0;
     this.ctx = game.ctx;
-    Entity.call(this, game, 510, 160);
+    Entity.call(this, game, 510, 500);
 }
 
 SpaceCat.prototype = new Entity();
@@ -230,7 +236,15 @@ SpaceCat.prototype.constructor = SpaceCat;
 
 SpaceCat.prototype.update = function() {
     this.x += this.game.clockTick * this.speed;
-    if (this.x > 900) this.x = -230;
+
+    //Try to move them back and forth.
+    if (this.x < 200) {
+        this.speed = 120;
+    }
+    if (this.x > 500) {
+        this.speed = -120;
+    }
+    //if (this.x > 900) this.x = -230;
 
     // this.y += this.game.clockTick * this.speed;
     // if (this.y > 150) this.y = 160;
@@ -244,7 +258,7 @@ SpaceCat.prototype.draw = function() {
 };
 
 function Swirl(game, spritesheet) {
-    this.animation = new Animation(spritesheet, 200, 100, 1, 0.09, 52, true, 0.8);
+    this.animation = new Animation(spritesheet, 200, 100, 1, 0.05, 52, true, 0.8);
     this.speed = 0;
     this.ctx = game.ctx;
     Entity.call(this, game, 400, 300);
@@ -288,8 +302,6 @@ Swirl.prototype.draw = function() {
 };
 
 //Entities to be animated
-
-AM.queueDownload("./img/animals1.png");
 
 AM.queueDownload("./img/background.jpg");
 AM.queueDownload("./img/bird.png");
