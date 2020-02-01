@@ -134,20 +134,31 @@ GreenDude.prototype.draw = function() {
 
 function Kitties(game, spritesheet) {
     this.animation = new Animation(spritesheet, 80, 80, 4, 0.5, 4, true, 1.5);
-    this.speed = 10;
+    this.speed = 100;
     this.ctx = game.ctx;
-    Entity.call(this, game, 350, 15);
+    Entity.call(this, game, 425, 15);
 }
 
 Kitties.prototype = new Entity();
 Kitties.prototype.constructor = Kitties;
 
 Kitties.prototype.update = function() {
-    this.x += this.game.clockTick * this.speed;
+    //this.x += this.game.clockTick * this.speed;
+    //if (this.x > 800) this.x = -230;
+    //if (this.y > 300) this.y = -60;
 
-    if (this.x > 800) this.x = -230;
-
-    if (this.y > 300) this.y = -60;
+    this.y += this.game.clockTick * this.speed;
+    if (this.x > 250) {
+        this.y -= 1;
+        this.x += 1;
+    }
+    if (this.y > 300) {
+        this.x -= 15;
+    }
+    if (this.x < 10) {
+        this.x = 425;
+        this.y = 15;
+    }
     Entity.prototype.update.call(this);
 };
 
@@ -302,7 +313,6 @@ Swirl.prototype.draw = function() {
 };
 
 //Entities to be animated
-
 AM.queueDownload("./img/background.jpg");
 AM.queueDownload("./img/bird.png");
 AM.queueDownload("./img/earth.png");
@@ -354,3 +364,4 @@ AM.downloadAll(function() {
 
     console.log("All Done!");
 });
+s;
