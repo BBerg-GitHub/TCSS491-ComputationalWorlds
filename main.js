@@ -115,15 +115,24 @@ function GreenDude(game, spritesheet) {
     this.animation = new Animation(spritesheet, 100, 120, 5, 0.2, 42, true, 0.75);
     this.speed = 0;
     this.ctx = game.ctx;
-    Entity.call(this, game, 280, 450);
+    Entity.call(this, game, 10, 180);
 }
 
 GreenDude.prototype = new Entity();
 GreenDude.prototype.constructor = GreenDude;
 
 GreenDude.prototype.update = function() {
-    this.x += this.game.clockTick * this.speed;
-    if (this.x > 800) this.x = -230;
+    // this.x += this.game.clockTick * this.speed;
+    // if (this.x > 800) this.x = -230;
+
+    if (this.y > 400) {
+        this.y -= 5;
+    }
+    if (this.y < 200) {
+        this.speed = 0;
+        this.y = 199;
+    }
+
     Entity.prototype.update.call(this);
 };
 
@@ -147,7 +156,7 @@ Kitties.prototype.update = function() {
     //if (this.x > 800) this.x = -230;
     //if (this.y > 300) this.y = -60;
 
-    this.y += this.game.clockTick * this.speed;
+    this.y += this.game.clockTick * this.speed * 2;
     if (this.x > 250) {
         this.y -= 1;
         this.x += 1;
@@ -155,7 +164,7 @@ Kitties.prototype.update = function() {
     if (this.y > 300) {
         this.x -= 15;
     }
-    if (this.x < 10) {
+    if (this.x < -20) {
         this.x = 425;
         this.y = 15;
     }
@@ -249,8 +258,8 @@ SpaceCat.prototype.update = function() {
     this.x += this.game.clockTick * this.speed;
 
     //Try to move them back and forth.
-    if (this.x < 200) {
-        this.speed = 120;
+    if (this.x < 100) {
+        this.speed = 20;
     }
     if (this.x > 500) {
         this.speed = -120;
